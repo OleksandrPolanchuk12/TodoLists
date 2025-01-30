@@ -1,0 +1,48 @@
+{% extends 'main/home.html' %}
+
+{% block title %}Всі задачі{% endblock %}
+
+{% block content %}
+<h1 class="text-center">Всі задачі</h1>
+
+<table class="table table-bordered mt-4">
+    <thead>
+        <tr>
+            <th>Номер</th>
+            <th>Назва</th>
+            <th>Опис</th>
+            <th>Правило</th>
+            <th>Колір</th>
+            <th>Дії</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for task in tasks %}
+        {% if task.rule and task.rule.color %}
+        <tr style="background-color: {{ task.rule.color.codcolor }};">
+            {% else %}
+        <tr>
+            {% endif %}
+            <td>{{ forloop.counter }}</td>
+            <td>{{ task.name }}</td>
+            <td>{{ task.description }}</td>
+            {% if task.rule %}
+            <td>{{ task.rule.name }}</td>
+            {% if task.rule.color %}
+            <td style="background-color: {{ task.rule.color.codcolor }};"></td>
+            {% else %}
+            <td> </td>
+            {% endif %}
+            {% else %}
+            <td> </td>
+            <td> </td>
+            {% endif %}
+            <td>
+                <a href="{% url 'edittask' task.id %}" class="btn btn-warning btn-sm">Редагувати</a>
+                <a href="{% url 'deletetask' task.id %}" class="btn btn-warning btn-sm">Видалити</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
