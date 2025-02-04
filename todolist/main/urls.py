@@ -12,5 +12,8 @@ urlpatterns = [
     path('home/view_tasks/', views.ViewTasks.as_view(), name='view_tasks'),
     path('logout/', views.logout_view, name='logout'),
     path('<int:pk>/update', views.TaskEditViews.as_view(), name='edittask'),
-    path('<int:pk>/delete', views.TaskDeleteView.as_view(), name='deletetask')
+    path('<int:pk>/delete', views.TaskDeleteView.as_view(), name='deletetask'),
+    path('login/confirmationemail/', views.ForgotPassword.as_view(), name='confirmationemail'),
+    path('login/confirmationemail/confirmationcode/', views.ConfirmationCode.as_view(), name='confirmationcode'),
+    path('login/confirmationemail/confirmationcode/changepassword/', views.ChangePassword.as_view(), name='changepassword'),
 ]

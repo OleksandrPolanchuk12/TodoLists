@@ -1,0 +1,53 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Вхід користувача{% endblock %}
+
+{% block content %}
+<h1 class="text-center">Вхід</h1>
+{% if messages %}
+<div class="alert alert-info">
+    {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor %}
+</div>
+{% endif %}
+<form method="post" action="">
+    {% csrf_token %}
+
+    <div class="mb-3">
+        <label for="id_code" class="form-label">6-значний код</label>
+        <input type="text" name="code" class="form-control" id="id_code" maxlength="6" pattern="\d{6}" required>
+        <small class="form-text text-muted">Введіть 6-значний код.</small>
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100">Підтвердити код</button>
+    {% if error %}
+    <p class="text-danger">{{ error }}</p>
+    {% endif %}
+</form>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+    (function(){
+        emailjs.init("GF2tIBT8KS-DS-R9y");
+    })();
+
+    function sendEmail() {
+        emailjs.send("service_ngqdkmb", "template_7nicegb", {
+            to_email: "{{ email }}",
+            subject: "Код підтвердження",
+            message: "{{ code }}"
+        })
+        .then(function(response) {
+            console.log("Email надіслано!", response);
+        }, function(error) {
+            console.log("Помилка:", error);
+        });
+    }
+
+    window.onload = function() {
+        sendEmail();
+    };
+</script>
+
+{% endblock %}

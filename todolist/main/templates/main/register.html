@@ -4,12 +4,24 @@
 
 {% block content %}
 <h1 class="text-center">Реєстрація</h1>
+{% if messages %}
+<div class="alert alert-danger">
+    {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor %}
+</div>
+{% endif %}
 <form method="post" class="mt-4" action="">
     {% csrf_token %}
 
     <div class="mb-3">
         <label for="{{ formregister.username.id_for_label }}" class="form-label">Ім'я користувача</label><br>
         <input type="text" name="username" class="form-control" id="{{ formregister.username.id_for_label }}" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="{{ formregister.email.id_for_label }}" class="form-label">Електрона пошта</label><br>
+        <input type="text" name="email" class="form-control" id="{{ formregister.email.id_for_label }}" required>
     </div>
 
     <div class="mb-3">
