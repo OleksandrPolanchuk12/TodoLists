@@ -22,16 +22,20 @@ class Register(View):
         if form.is_valid():
             user = form.save()
             user.email = request.POST.get('email')
-            user.save() 
+            user.save()
             messages.success(request, 'Реєстрація успішна!')
             auth_login(request, user)
             return redirect('home')
         else:
             for field, errors in form.errors.items():
                 for error in errors:
-                    messages.error(request, f"{form.fields[field].label}: {error}")
+                    messages.error(
+                        request, f"{form.fields[field].label}: {error}")
 
             return render(request, 'main/register.html', {'formregister': form})
+
+# перевірка
+
 
 class Login(View):
 
@@ -133,17 +137,20 @@ class ForgotPassword(View):
 
         if user:
             request.session['email'] = email
-            request.session['code'] = str(code)  
+            request.session['code'] = str(code)
 
-            messages.success(request, 'Код підтвердження надіслано на вашу пошту!')
+            messages.success(
+                request, 'Код підтвердження надіслано на вашу пошту!')
             return redirect('confirmationcode')
-        
-        messages.error(request, 'Користувача з таким ім\'ям та електронною поштою не знайдено.')
+
+        messages.error(
+            request, 'Користувача з таким ім\'ям та електронною поштою не знайдено.')
         return render(request, 'main/forgotpassword.html')
+
 
 class ConfirmationCode(View):
     def get(self, request):
-        return render(request, 'main/confirmationcode.html', {'email': request.session.get('email'),'code': request.session.get('code')})
+        return render(request, 'main/confirmationcode.html', {'email': request.session.get('email'), 'code': request.session.get('code')})
 
     def post(self, request):
         confirmation_code = request.POST.get('code')
@@ -151,9 +158,10 @@ class ConfirmationCode(View):
 
         if confirmation_code == session_code:
             return redirect('changepassword')
-        
+
         messages.error(request, 'Невірний код підтвердження.')
-        return render(request, 'main/confirmationcode.html', {'email': request.session.get('email'),'code': request.session.get('code')})
+        return render(request, 'main/confirmationcode.html', {'email': request.session.get('email'), 'code': request.session.get('code')})
+
 
 class ChangePassword(View):
     def get(self, request):
@@ -172,7 +180,8 @@ class ChangePassword(View):
         user.set_password(password)
         user.save()
 
-        messages.success(request, 'Пароль успішно змінено! Тепер ви можете увійти.')
+        messages.success(
+            request, 'Пароль успішно змінено! Тепер ви можете увійти.')
         return redirect('login')
 
 
