@@ -1,7 +1,6 @@
 from django.contrib import admin
-from .models import Rule, Color, Task
+from .models import Rule, Task, Color
 
 admin.site.register(Rule)
-admin.site.register(Color)
 admin.site.register(Task)
-# Register your models here.
+admin.site.register(Color)
