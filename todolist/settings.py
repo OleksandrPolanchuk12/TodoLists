@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-9=2_+w_+y+#l%ds@j2mb69ush42cicoy#a6sm4p5cd7%=g$th0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -89,13 +89,14 @@ WSGI_APPLICATION = 'todolist.wsgi.application'
 #     }
 # }
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'todolist',
         'USER': 'rootroot',
         'PASSWORD': 'example-password',
-        'HOST': 'localhost',
+        'HOST': 'mysql',
         'PORT': '3306',
                 'OPTIONS': {
                     'charset': 'utf8mb4',

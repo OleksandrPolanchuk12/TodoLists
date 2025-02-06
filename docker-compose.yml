@@ -1,0 +1,19 @@
+services:
+  web:
+    build: .
+    command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+    volumes:
+      - .:/app 
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mysql
+  mysql:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: example-password
+      MYSQL_DATABASE: todolist
+      MYSQL_USER: rootroot
+      MYSQL_PASSWORD: example-password
+    ports:
+      - "3306:3306"
