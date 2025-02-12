@@ -17,3 +17,8 @@ services:
       MYSQL_PASSWORD: example-password
     ports:
       - "3306:3306"
+  redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - "6379:6379"

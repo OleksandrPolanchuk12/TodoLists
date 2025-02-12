@@ -1,10 +1,11 @@
+from django.contrib.auth import authenticate, logout, login as auth_login
+from .tasks import send_email_task
+from main.forms import CustomUserCreationForm
 from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
 from django.contrib import messages
 from django.views import View
-from django.contrib.auth.models import User
 import random
-from main.forms import CustomUserCreationForm
-from django.contrib.auth import authenticate, logout, login as auth_login
 
 class Register(View):
 
@@ -56,10 +57,10 @@ def logout_view(request):
 
 
 class Home(View):
-
     def get(self, request):
         data = {'user': request.user}
         return render(request, 'main/home.html', data)
+
 
 class ForgotPassword(View):
     def get(self, request):
@@ -74,6 +75,8 @@ class ForgotPassword(View):
         if user:
             request.session['email'] = email
             request.session['code'] = str(code)
+
+            send_email_task.delay(email, code)        
 
             messages.success(
                 request, 'Код підтвердження надіслано на вашу пошту!')

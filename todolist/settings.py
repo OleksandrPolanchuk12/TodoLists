@@ -75,24 +75,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'todolist.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'todolist',
-#         'USER': 'root',
-#         'PASSWORD': 'A28282006_G28282006_ag',
-#         'HOST': 'localhost',
-#         'PORT': '3306',
-#                 'OPTIONS': {
-#                     'charset': 'utf8mb4',
-#                 },
-#     }
-# }
-
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -139,6 +121,27 @@ USE_TZ = True
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
+# ВІдправлення листів
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_HOST = 'smtp.gmail.com'
+
+EMAIL_PORT = 587
+
+EMAIL_USE_TLS = True
+
+EMAIL_HOST_USER = 'polanchykoleksandr@gmail.com'  
+
+EMAIL_HOST_PASSWORD = 'hpsj qtor ymtx iylt'  
+
+# Resis Celery
+
+CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
+
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/

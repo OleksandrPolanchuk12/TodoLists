@@ -26,28 +26,4 @@
     {% endif %}
 </form>
 
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-<script>
-    (function(){
-        emailjs.init("GF2tIBT8KS-DS-R9y");
-    })();
-
-    function sendEmail() {
-        emailjs.send("service_ngqdkmb", "template_7nicegb", {
-            to_email: "{{ email }}",
-            subject: "Код підтвердження",
-            message: "{{ code }}"
-        })
-        .then(function(response) {
-            console.log("Email надіслано!", response);
-        }, function(error) {
-            console.log("Помилка:", error);
-        });
-    }
-
-    window.onload = function() {
-        sendEmail();
-    };
-</script>
-
 {% endblock %}
