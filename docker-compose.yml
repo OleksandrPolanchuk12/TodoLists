@@ -1,13 +1,16 @@
 services:
   web:
     build: .
-    command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/app 
     ports:
       - "8000:8000"
     depends_on:
       - mysql
+      - redis
+    env_file:
+      - .env
   mysql:
     image: mysql
     environment:
@@ -22,3 +25,4 @@ services:
     restart: always
     ports:
       - "6379:6379"
+ 

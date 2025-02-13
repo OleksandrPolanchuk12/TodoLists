@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +25,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-9=2_+w_+y+#l%ds@j2mb69ush42cicoy#a6sm4p5cd7%=g$th0'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -78,11 +83,11 @@ WSGI_APPLICATION = 'todolist.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'todolist',
-        'USER': 'rootroot',
-        'PASSWORD': 'example-password',
-        'HOST': 'mysql',
-        'PORT': '3306',
+        'NAME': os.getenv('DATABASE_NAME', default=''),
+        'USER': os.getenv('DATABASE_USER', default=''),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD', default=''),
+        'HOST': os.getenv('DATABASE_HOST', default=''),
+        'PORT': os.getenv('DATABASE_PORT', default=''),
                 'OPTIONS': {
                     'charset': 'utf8mb4',
                 },
@@ -130,14 +135,14 @@ EMAIL_PORT = 587
 
 EMAIL_USE_TLS = True
 
-EMAIL_HOST_USER = 'polanchykoleksandr@gmail.com'  
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 
-EMAIL_HOST_PASSWORD = 'hpsj qtor ymtx iylt'  
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
 # Resis Celery
 
-CELERY_BROKER_URL = 'redis://redis:6379/0'
-CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
+CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL')
+CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND')
 
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
@@ -155,3 +160,6 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# .env
+

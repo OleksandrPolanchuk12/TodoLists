@@ -118,6 +118,7 @@ class ChangePassword(View):
         user = User.objects.get(email=request.session.get('email'))
         user.set_password(password)
         user.save()
+        request.session.flush()
 
         messages.success(
             request, 'Пароль успішно змінено! Тепер ви можете увійти.')
