@@ -11,6 +11,7 @@ class AddRule(View):
 
     def post(self, request):
         form = RuleForm(request.POST)
+        
         if form.is_valid():
             form.instance.user = request.user
             form.save()
@@ -18,5 +19,8 @@ class AddRule(View):
         else:
             error = 'Форма не правильно заповнена'
             return render(request, 'rule/add_rule.html', {'form': form, 'error': error})
+        
+
+
 
 
