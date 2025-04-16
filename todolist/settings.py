@@ -153,6 +153,7 @@ CELERY_RESULT_SERIALIZER = 'json'
 
 STATIC_URL = 'static/'
 
+
 STATICFILES_DIRS = [
     BASE_DIR / 'todolist' / "static",
 ]
