@@ -153,6 +153,7 @@ CELERY_RESULT_SERIALIZER = 'json'
 
 STATIC_URL = 'static/'
 
+
 STATICFILES_DIRS = [
     BASE_DIR / 'todolist' / "static",
 ]
@@ -161,5 +162,3 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
